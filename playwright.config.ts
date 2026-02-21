@@ -13,7 +13,7 @@ export default defineConfig({
   use: {
     storageState: 'auth.json',   // ✅ use saved login session
     trace: 'on-first-retry',          // ✅ so you can see the browser
-    headless: true,
+    headless: false,
   },
 
   projects: [
