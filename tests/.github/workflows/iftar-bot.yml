@@ -1,0 +1,29 @@
+name: Run Iftar Bot
+
+on:
+  schedule:
+    # 5:00 AM IST (Punjab) = 23:30 UTC (previous day)
+    - cron: "30 23 * * *"
+  workflow_dispatch:
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70   # slightly more than 1 hour for safety
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: |
+          npm install
+          npx playwright install --with-deps
+
+      - name: Run Playwright Test
+        run: npx playwright test --project=chromium --workers=1
