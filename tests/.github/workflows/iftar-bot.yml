@@ -2,14 +2,14 @@ name: Run Iftar Bot
 
 on:
   schedule:
-    # 5:00 AM IST (Punjab) = 23:30 UTC (previous day)
+    # 5:00 AM IST (Punjab) = 23:30 UTC
     - cron: "30 23 * * *"
   workflow_dispatch:
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
-    timeout-minutes: 70   # slightly more than 1 hour for safety
+    timeout-minutes: 70
 
     steps:
       - name: Checkout repository
@@ -25,5 +25,5 @@ jobs:
           npm install
           npx playwright install --with-deps
 
-      - name: Run Playwright Test
-        run: npx playwright test --project=chromium --workers=1
+      - name: Run Iftar Test Only
+        run: npx playwright test tests/autoRegister.spec.ts --project=chromium --workers=1 --reporter=line
